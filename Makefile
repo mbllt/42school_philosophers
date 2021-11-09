@@ -3,7 +3,7 @@ NAME=			philo
 SRCS_DIR=		srcs
 SRCS_FILES=		philo.c\
 				utils/ft_exit.c\
-				utils/check_arg.c
+				utils/check_args.c
 SRCS=			$(addprefix $(SRCS_DIR)/,$(SRCS_FILES))
 
 OBJS_DIR=		.objs
