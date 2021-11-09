@@ -1,13 +1,16 @@
 NAME=			philo
+
 SRCS_DIR=		srcs
-SRCS_FILES=		philo.c
+SRCS_FILES=		philo.c\
+				utils/ft_exit.c\
+				utils/check_arg.c
 SRCS=			$(addprefix $(SRCS_DIR)/,$(SRCS_FILES))
 
 OBJS_DIR=		.objs
 OBJS=			$(addprefix $(OBJS_DIR)/,$(SRCS_FILES:.c=.o))
-PATH_OBJS=		
+PATH_OBJS=		utils
 
-INCLUDES=		includes/philo.h libft/include/libft.h
+INCLUDES=		includes/philo.h libft/includes/libft.h
 
 CC=				gcc
 CFLAGS=			-g -Wall -Werror -Wextra -Iincludes/ 

@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 13:28:09 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/09 17:54:30 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/09 18:41:12 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdbool.h>
-# include "../libft/include/libft.h"
+# include "../libft/includes/libft.h"
 # include <pthread.h>
 # include <sys/time.h>
 
@@ -50,5 +50,8 @@ typedef struct s_data
 	short int	death;
 }	t_data;
 
+// Utils
+short int	check_args(int argc, char **argv);
+short int	ft_exit(int ret, char *mess_err);
 
 #endif
