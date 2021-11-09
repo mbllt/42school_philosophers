@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 18:15:14 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/09 18:57:02 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/09 19:02:22 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static short int	check_size(int argc, char **argv)
 {
-	int	i;
-	int	j;
-	int	nbr;
+	int			i;
+	int			j;
+	long int	nbr;
 
 	i = 1;
 	while (i < argc)
@@ -34,7 +34,7 @@ static short int	check_size(int argc, char **argv)
 	while (i < argc)
 	{
 		nbr = ft_atoi(argv[i]);
-		if (nbr < 0)
+		if (nbr < 0 || nbr > 2147483647)
 			return (ft_exit(FAILURE, "Error : args too long"));
 		i++;
 	}
