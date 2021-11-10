@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 10:48:26 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/10 17:34:04 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/10 18:41:24 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 static void	eating(t_data *data)
 {
 	pthread_mutex_lock((&(*data).philo.l_f));
+	pthread_mutex_lock((*data).mut_dead);
 	printf("%ld %d has taken a fork\n", getting_time() \
 		- data->start_time, data->philo.id);
+	pthread_mutex_unlock((*data).mut_dead);
 
 	pthread_mutex_lock((*data).mut_dead);
 	printf("%ld %d is eating\n", getting_time() \
@@ -60,8 +62,8 @@ void	*thread(void *dat)
 			break ;
 		}
 		// les pairs au tout debut attendent avant de manger
-		// if (!data->n_meal && !data->philo.id % 2)
-		// 	ft_usleep(1);
+		if (!data->start_time && !data->philo.id % 2)
+			continue ;
 		eating(data);
 		sleeping(data);
 		thinking(data);

@@ -23,8 +23,10 @@ static short int	finish_meal(t_data *data, int nbr_philo)
 		{
 			pthread_mutex_lock(data[i].mut_dead);
 			printf("%ld %d died\n", getting_time() \
-			- data->start_time, data[i].philo.id);
-			return (SUCCESS);
+				- data->start_time, data[i].philo.id);
+			{
+				return (SUCCESS);
+			}
 		}
 		i++;
 	}
