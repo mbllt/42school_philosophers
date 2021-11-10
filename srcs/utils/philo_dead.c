@@ -19,10 +19,8 @@ static short int	finish_meal(t_data *data, int nbr_philo)
 	i = 0;
 	while (i < nbr_philo)
 	{
-		if (data[i].n_meal >= data[i].args.n_eat)
+		if (data[i].args.n_eat && data[i].n_meal >= data[i].args.n_eat)
 		{
-			for (int j = 0;j < nbr_philo;j++)
-				data[j].death = 1;
 			pthread_mutex_lock(data[i].mut_dead);
 			printf("%ld %d died\n", getting_time(), data[i].philo.id);
 			return (SUCCESS);
@@ -41,8 +39,6 @@ short int	philo_dead(t_data *data, int nbr_philo)
 	{
 		if (data[i].death)
 		{
-			for (int j = 0;j < nbr_philo;j++)
-				data[j].death = 1;
 			pthread_mutex_lock(data[i].mut_dead);
 			printf("%ld %d died\n", getting_time(), data[i].philo.id);
 			{

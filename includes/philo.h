@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 13:28:09 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/10 16:22:40 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/10 16:29:42 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ void		fill_data(int argc, char **argv, t_data **data);
 
 // Philo
 short int	philo(t_data **data, int nbr_philo);
+short int	starting_thread(t_data **data, int nbr_philo);
 
 // Thread
 void		*thread(void *dat);

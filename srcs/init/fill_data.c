@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 20:44:48 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/10 15:16:18 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/10 16:47:11 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ t_args	fill_args(int argc, char **argv)
 	args.sleep = ft_atoi(argv[4]);
 	if (argc == 6)
 		args.n_eat = ft_atoi(argv[5]);
+	else
+		args.n_eat = 0;
 	return (args);
 }
 

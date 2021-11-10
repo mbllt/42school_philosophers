@@ -6,13 +6,13 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 17:55:36 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/10 16:26:34 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/10 16:46:57 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-short int	philo(t_data **data, int nbr_philo)
+short int	starting_thread(t_data **data, int nbr_philo)
 {
 	int	i;
 
@@ -30,22 +30,22 @@ short int	philo(t_data **data, int nbr_philo)
 	return (SUCCESS);
 }
 
-// short int	philo(t_data **data, int nbr_philo)
-// {
-// 	pthread_mutex_init(data[0].mut_dead, NULL);
-// 	if (!philo(&data, ft_atoi(argv[1])))
-// 		return (ft_exit(EXIT_FAILURE, NULL, clear, data));
-// 	while (1)
-// 	{
-// 		if (philo_dead(data, ft_atoi(argv[1])))
-// 		{
-// 			usleep(500);
-// 			if (pthread_mutex_destroy(data[0].mut_dead))
-// 				return (ft_exit(EXIT_FAILURE, NULL, clear, data));
-// 			break ;
-// 		}
-// 	}
-// }
+short int	philo(t_data **data, int nbr_philo)
+{
+	pthread_mutex_init((*data)[0].mut_dead, NULL);
+	if (!starting_thread(data, nbr_philo))
+		return (FAILURE);
+	while (1)
+	{
+		if (philo_dead((*data), nbr_philo))
+		{
+			if (pthread_mutex_destroy((*data)[0].mut_dead))
+				return (FAILURE);
+			break ;
+		}
+	}
+	return (SUCCESS);
+}
 
 int	main(int argc, char **argv)
 {
@@ -59,24 +59,8 @@ int	main(int argc, char **argv)
 		if (!init_data(ft_atoi(argv[1]), &data))
 			return (ft_exit(EXIT_FAILURE, NULL, clear, data));
 		fill_data(argc, argv, &data);
-		//
-		// if (!philoo(*data, ft_atoit(argv[1])))
-		// 	return (ft_exit(EXIT_FAILURE, NULL, clear, data));
-		
-		pthread_mutex_init(data[0].mut_dead, NULL);
 		if (!philo(&data, ft_atoi(argv[1])))
 			return (ft_exit(EXIT_FAILURE, NULL, clear, data));
-		while (1)
-		{
-			if (philo_dead(data, ft_atoi(argv[1])))
-			{
-				usleep(500);
-				if (pthread_mutex_destroy(data[0].mut_dead))
-					return (ft_exit(EXIT_FAILURE, NULL, clear, data));
-				break ;
-			}
-		}
-		//
 	}
 	else
 	{
