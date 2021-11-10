@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 13:28:09 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/09 18:41:12 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/10 11:10:30 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_philo
 	pthread_t		thread_id;
 	pthread_mutex_t	*r_f;
 	pthread_mutex_t	l_f;
-	long int		time_eat;
+	long int		start_eat;
 	int				n_meal;
 }	t_philo;
 
@@ -48,10 +48,25 @@ typedef struct s_data
 	t_args		args;
 	t_philo		philo;
 	short int	death;
+	int			nbr_philo;
 }	t_data;
 
 // Utils
 short int	check_args(int argc, char **argv);
-short int	ft_exit(int ret, char *mess_err);
+short int	ft_exit(int ret, char *mess_err, void(*clear)(t_data *data), t_data *data);
+void		clear(t_data *data);
+long int	getting_time();
+
+// Init
+short int	init_data(int nbr, t_data **data);
+void		fill_data(int argc, char **argv, t_data **data);
+
+// Philo
+short int	philo(t_data *data);
+void		*thread(void *dat);
+
+// Fork
+void		init_fork(t_data *data);
+short int	destroy_fork(t_data *data);
 
 #endif

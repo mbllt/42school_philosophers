@@ -3,18 +3,24 @@ NAME=			philo
 SRCS_DIR=		srcs
 SRCS_FILES=		philo.c\
 				utils/ft_exit.c\
-				utils/check_args.c
+				utils/check_args.c\
+				utils/getting_time.c\
+				init/init_data.c\
+				init/fill_data.c\
+				thread/thread.c\
+				thread/fork.c
 SRCS=			$(addprefix $(SRCS_DIR)/,$(SRCS_FILES))
 
 OBJS_DIR=		.objs
 OBJS=			$(addprefix $(OBJS_DIR)/,$(SRCS_FILES:.c=.o))
-PATH_OBJS=		utils
+PATH_OBJS=		utils init thread
 
 INCLUDES=		includes/philo.h libft/includes/libft.h
 
 CC=				gcc
 CFLAGS=			-g -Wall -Werror -Wextra -Iincludes/ 
-SANFLAGS=		-g3 -fsanitize=address
+SANAFLAGS=		-g3 -fsanitize=address
+SANTFLAGS=		-g3 -fsanitize=thread
 OMPFLAGS=		-openmp
 TFLAGS=			-pthread
 
@@ -24,8 +30,13 @@ NAME_LIBFT=		libft/libft.a
 RM=				/bin/rm -rf
 
 ifeq ($(ASAN), 1)
-CFLAGS := $(CFLAGS) $(SANFLAGS)
-OMPFLAGS := $(OMPFLAGS) $(SANFLAGS)
+CFLAGS := $(CFLAGS) $(SANAFLAGS)
+OMPFLAGS := $(OMPFLAGS) $(SANAFLAGS)
+endif
+
+ifeq ($(ASAN), 2)
+CFLAGS := $(CFLAGS) $(SANTFLAGS)
+OMPFLAGS := $(OMPFLAGS) $(SANTFLAGS)
 endif
 
 all:				$(NAME)

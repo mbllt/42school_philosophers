@@ -1,39 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/09 18:29:06 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/10 10:21:37 by mballet          ###   ########.fr       */
+/*   Created: 2021/11/10 10:34:35 by mballet           #+#    #+#             */
+/*   Updated: 2021/11/10 10:48:02 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	clear(t_data *data)
+void	init_fork(t_data *data)
 {
 	int	i;
 
 	i = 0;
 	while (i < data[0].nbr_philo)
 	{
-		if (data[i].philo.r_f)
-			free (data[i].philo.r_f);
+		pthread_mutex_init(&(data[i].philo.l_f), NULL);
+		if (i + 1 == data[0].nbr_philo)
+			data[i].philo.r_f = &(data[0].philo.l_f);
+		else
+			data[i].philo.r_f = &(data[i + 1].philo.l_f);
 		i++;
 	}
-	if (data)
-		free(data);
 }
 
-short int	ft_exit(int ret, char *mess_err, void(*clear)(t_data *data), t_data *data)
+short int	destroy_fork(t_data *data)
 {
-	if (data)
-		clear(data);
-	if (mess_err)
+	int	i;
+
+	i = 0;
+	while (i < data[0].nbr_philo)
 	{
-		printf("%s\n", mess_err);
+		if (pthread_mutex_destroy(&(data[i].philo.l_f)))
+			return (FAILURE);
+		i++;
 	}
-	return (ret);
+	return (SUCCESS);
 }

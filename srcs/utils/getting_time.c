@@ -1,39 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*   getting_time.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/09 18:29:06 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/10 10:21:37 by mballet          ###   ########.fr       */
+/*   Created: 2021/11/10 11:03:39 by mballet           #+#    #+#             */
+/*   Updated: 2021/11/10 11:10:06 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	clear(t_data *data)
+long int	getting_time()
 {
-	int	i;
+	int				time;
+	struct timeval	current_time;
 
-	i = 0;
-	while (i < data[0].nbr_philo)
-	{
-		if (data[i].philo.r_f)
-			free (data[i].philo.r_f);
-		i++;
-	}
-	if (data)
-		free(data);
-}
-
-short int	ft_exit(int ret, char *mess_err, void(*clear)(t_data *data), t_data *data)
-{
-	if (data)
-		clear(data);
-	if (mess_err)
-	{
-		printf("%s\n", mess_err);
-	}
-	return (ret);
+	time = 0;
+	if (gettimeofday(&current_time, NULL) == -1)
+		ft_exit(FAILURE, "Gettimeofday ret error\n", NULL, NULL);
+	time = (current_time.tv_sec * 1000) + (current_time.tv_usec / 1000);
+	return (time);
 }
