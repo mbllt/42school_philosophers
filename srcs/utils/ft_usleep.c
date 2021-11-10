@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   getting_time.c                                     :+:      :+:    :+:   */
+/*   ft_usleep.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/10 11:03:39 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/10 13:11:43 by mballet          ###   ########.fr       */
+/*   Created: 2021/11/10 16:22:53 by mballet           #+#    #+#             */
+/*   Updated: 2021/11/10 16:23:03 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long int	getting_time()
+void	ft_usleep(long int time_in_ms)
 {
-	int				time;
-	struct timeval	current_time;
+	long int	start_time;
 
-	time = 0;
-	if (gettimeofday(&current_time, NULL) == -1)
-		ft_exit(FAILURE, "Gettimeofday ret error\n", NULL, NULL);
-	time = (current_time.tv_sec * 1000) + (current_time.tv_usec / 1000);
-	return (time);
+	start_time = 0;
+	start_time = getting_time();
+	while ((getting_time() - start_time) < time_in_ms)
+		usleep(time_in_ms / 10);
 }

@@ -3,12 +3,14 @@ NAME=			philo
 SRCS_DIR=		srcs
 SRCS_FILES=		philo.c\
 				utils/ft_exit.c\
-				utils/check_args.c\
 				utils/getting_time.c\
+				utils/philo_dead.c\
+				utils/ft_usleep.c\
+				init/check_args.c\
 				init/init_data.c\
 				init/fill_data.c\
 				thread/thread.c\
-				thread/fork.c
+				thread/mutex.c
 SRCS=			$(addprefix $(SRCS_DIR)/,$(SRCS_FILES))
 
 OBJS_DIR=		.objs

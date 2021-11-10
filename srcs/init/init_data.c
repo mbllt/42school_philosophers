@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 19:04:34 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/10 12:11:56 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/10 16:17:49 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 short int	init_data(int nbr_philo, t_data **data)
 {
-	int	i;
+	int				i;
+	pthread_mutex_t	*mut;
 
 	*data = malloc(sizeof(t_data) * nbr_philo);
 	if (!*data)
@@ -25,6 +26,15 @@ short int	init_data(int nbr_philo, t_data **data)
 		(*data)[i].philo.r_f = malloc(sizeof(pthread_mutex_t *));
 		if (!((*data)[i].philo.r_f))
 			return (FAILURE);
+		i++;
+	}
+	mut = malloc(sizeof(pthread_mutex_t *));
+	if (!mut)
+		return (FAILURE);
+	i = 0;
+	while (i < nbr_philo)
+	{
+		(*data)[i].mut_dead = mut;
 		i++;
 	}
 	return (SUCCESS);

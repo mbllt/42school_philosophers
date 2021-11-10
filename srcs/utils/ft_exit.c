@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 18:29:06 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/10 10:21:37 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/10 16:04:43 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	clear(t_data *data)
 			free (data[i].philo.r_f);
 		i++;
 	}
+	if (data[0].mut_dead)
+		free(data[0].mut_dead);
 	if (data)
 		free(data);
 }
