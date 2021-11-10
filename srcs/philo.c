@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 17:55:36 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/10 16:46:57 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/10 17:29:54 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,16 @@ short int	starting_thread(t_data **data, int nbr_philo)
 {
 	int	i;
 
-	// init_fork(*data);
+	init_mut_fork(*data);
+//
+	(*data)[0].start_time = getting_time();
+	i = 1;
+	while (i < nbr_philo)
+	{
+		(*data)[i].start_time = (*data)[0].start_time;
+		i++;
+	}
+//
 	i = 0;
 	while (i < nbr_philo)
 	{
@@ -25,8 +34,8 @@ short int	starting_thread(t_data **data, int nbr_philo)
 			return (FAILURE);
 		i++;
 	}
-	// if (!destroy_fork(*data))
-		// return (FAILURE);
+	if (!destroy_mut_fork(*data))
+		return (FAILURE);
 	return (SUCCESS);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 13:28:09 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/10 16:29:42 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/10 17:30:26 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_data
 	int				n_meal;
 	int				nbr_philo;
 	pthread_mutex_t	*mut_dead;
+	long int		start_time;
 }	t_data;
 
 // Utils
@@ -70,7 +71,7 @@ short int	starting_thread(t_data **data, int nbr_philo);
 
 // Thread
 void		*thread(void *dat);
-void		init_mut_fork(pthread_mutex_t *mutex, t_data *data);
-short int	destroy_mut_fork(pthread_mutex_t *mutex, t_data *data);
+void		init_mut_fork(t_data *data);
+short int	destroy_mut_fork(t_data *data);
 
 #endif

@@ -6,20 +6,20 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 15:27:48 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/10 16:11:19 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/10 17:31:15 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	init_mut_fork(pthread_mutex_t *mutex, t_data *data)
+void	init_mut_fork(t_data *data)
 {
 	int	i;
 
 	i = 0;
 	while (i < data[0].nbr_philo)
 	{
-		pthread_mutex_init(mutex, NULL);
+		pthread_mutex_init(&(data[i].philo.l_f), NULL);
 		if (i == data[0].nbr_philo - 1)
 			data[i].philo.r_f = &(data[0].philo.l_f);
 		else
@@ -28,14 +28,14 @@ void	init_mut_fork(pthread_mutex_t *mutex, t_data *data)
 	}
 }
 
-short int	destroy_mut_fork(pthread_mutex_t *mutex, t_data *data)
+short int	destroy_mut_fork(t_data *data)
 {
 	int	i;
 
 	i = 0;
 	while (i < data[0].nbr_philo)
 	{
-		if (pthread_mutex_destroy(mutex))
+		if (pthread_mutex_destroy(&(data[i].philo.l_f)))
 			return (FAILURE);
 		i++;
 	}
