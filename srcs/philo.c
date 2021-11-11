@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 17:55:36 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/11 09:26:38 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/11 11:45:01 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,6 @@ short int	starting_thread(t_data **data, int nbr_philo)
 		}
 		i++;
 	}
-	if (!destroy_mut_fork(*data))
-	{
-		return (FAILURE);
-	}
 	return (SUCCESS);
 }
 
@@ -52,7 +48,8 @@ short int	philo(t_data **data, int nbr_philo)
 	{
 		if (philo_dead((*data), nbr_philo))
 		{
-			if (pthread_mutex_destroy((*data)[0].print))
+			if (pthread_mutex_destroy((*data)[0].print) ||
+				!destroy_mut_fork(*data))
 				return (FAILURE);
 			break ;
 		}
