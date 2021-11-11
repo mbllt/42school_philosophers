@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 17:55:36 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/10 18:48:09 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/11 09:26:38 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ short int	starting_thread(t_data **data, int nbr_philo)
 	int	i;
 
 	init_mut_fork(*data);
-//
 	(*data)[0].start_time = getting_time();
 	i = 1;
 	while (i < nbr_philo)
@@ -25,7 +24,6 @@ short int	starting_thread(t_data **data, int nbr_philo)
 		(*data)[i].start_time = (*data)[0].start_time;
 		i++;
 	}
-//
 	i = 0;
 	while (i < nbr_philo)
 	{
@@ -34,8 +32,6 @@ short int	starting_thread(t_data **data, int nbr_philo)
 		{
 			return (FAILURE);
 		}
-		// if (pthread_detach((*data)[i].philo.thread_id))
-		// 	return (FAILURE);
 		i++;
 	}
 	if (!destroy_mut_fork(*data))
@@ -47,7 +43,7 @@ short int	starting_thread(t_data **data, int nbr_philo)
 
 short int	philo(t_data **data, int nbr_philo)
 {
-	pthread_mutex_init((*data)[0].mut_dead, NULL);
+	pthread_mutex_init((*data)[0].print, NULL);
 	if (!starting_thread(data, nbr_philo))
 	{
 		return (FAILURE);
@@ -56,7 +52,7 @@ short int	philo(t_data **data, int nbr_philo)
 	{
 		if (philo_dead((*data), nbr_philo))
 		{
-			if (pthread_mutex_destroy((*data)[0].mut_dead))
+			if (pthread_mutex_destroy((*data)[0].print))
 				return (FAILURE);
 			break ;
 		}

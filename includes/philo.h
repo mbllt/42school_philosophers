@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 13:28:09 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/10 17:30:26 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/11 09:26:23 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,9 @@ typedef struct s_data
 	short int		death;
 	int				n_meal;
 	int				nbr_philo;
-	pthread_mutex_t	*mut_dead;
+	pthread_mutex_t	*print;
 	long int		start_time;
 }	t_data;
-
-// Utils
-short int	check_args(int argc, char **argv);
-short int	ft_exit(int ret, char *mess_err, void(*clear)(t_data *data), t_data *data);
-void		clear(t_data *data);
-long int	getting_time();
-short int	philo_dead(t_data *data, int nbr_philo);
-void		ft_usleep(long int time_in_ms);
 
 // Init
 short int	init_data(int nbr, t_data **data);
@@ -73,5 +65,13 @@ short int	starting_thread(t_data **data, int nbr_philo);
 void		*thread(void *dat);
 void		init_mut_fork(t_data *data);
 short int	destroy_mut_fork(t_data *data);
+
+// Utils
+short int	check_args(int argc, char **argv);
+short int	ft_exit(int ret, char *mess_err, void(*clear)(t_data *data), t_data *data);
+void		clear(t_data *data);
+long int	getting_time();
+short int	philo_dead(t_data *data, int nbr_philo);
+void		ft_usleep(long int time_in_ms);
 
 #endif

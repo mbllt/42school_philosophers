@@ -12,6 +12,18 @@
 
 #include "philo.h"
 
+static void	all_philo_dead(t_data *data, int nbr_philo)
+{
+	int	i;
+
+	i = 0;
+	while (i < nbr_philo)
+	{
+		data[i].death = 1;
+		i++;
+	}
+}
+
 static short int	finish_meal(t_data *data, int nbr_philo)
 {
 	int	i;
@@ -21,7 +33,8 @@ static short int	finish_meal(t_data *data, int nbr_philo)
 	{
 		if (data[i].args.n_eat && data[i].n_meal >= data[i].args.n_eat)
 		{
-			pthread_mutex_lock(data[i].mut_dead);
+			all_philo_dead(data, nbr_philo);
+			pthread_mutex_lock(data[i].print);
 			printf("%ld %d died\n", getting_time() \
 				- data->start_time, data[i].philo.id);
 			{
@@ -42,7 +55,8 @@ short int	philo_dead(t_data *data, int nbr_philo)
 	{
 		if (data[i].death)
 		{
-			pthread_mutex_lock(data[i].mut_dead);
+			all_philo_dead(data, nbr_philo);
+			pthread_mutex_lock(data[i].print);
 			printf("%ld %d died\n", getting_time() \
 				- data->start_time, data[i].philo.id);
 			{

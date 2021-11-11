@@ -20,9 +20,8 @@ PATH_OBJS=		utils init thread
 INCLUDES=		includes/philo.h libft/includes/libft.h
 
 CC=				gcc
-CFLAGS=			-g -Wall -Werror -Wextra -Iincludes/ 
-SANAFLAGS=		-g3 -fsanitize=address
-SANTFLAGS=		-g3 -fsanitize=thread
+CFLAGS=			-g -Wall -Werror -Wextra -Iincludes/
+SANFLAGS=		-g3 -fsanitize=thread
 OMPFLAGS=		-openmp
 TFLAGS=			-pthread
 
@@ -32,14 +31,10 @@ NAME_LIBFT=		libft/libft.a
 RM=				/bin/rm -rf
 
 ifeq ($(ASAN), 1)
-CFLAGS := $(CFLAGS) $(SANAFLAGS)
-OMPFLAGS := $(OMPFLAGS) $(SANAFLAGS)
+CFLAGS := $(CFLAGS) $(SANFLAGS)
+OMPFLAGS := $(OMPFLAGS) $(SANFLAGS)
 endif
 
-ifeq ($(ASAN), 2)
-CFLAGS := $(CFLAGS) $(SANTFLAGS)
-OMPFLAGS := $(OMPFLAGS) $(SANTFLAGS)
-endif
 
 all:				$(NAME)
 
