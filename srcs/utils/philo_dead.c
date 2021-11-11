@@ -35,9 +35,8 @@ static short int	finish_meal(t_data *data, int nbr_philo)
 		{
 			all_philo_dead(data, nbr_philo);
 			pthread_mutex_lock(data[i].print);
-			for (int j = 0;j < nbr_philo;j++)
-				printf("%ld %d has eaten %d times\n", getting_time() \
-				- data->start_time, data[i].philo.id, data[i].n_meal);
+			printf("%ld Philosophers have eaten %d times\n", getting_time() \
+				- data->start_time, data[i].n_meal);
 			{
 				return (SUCCESS);
 			}
