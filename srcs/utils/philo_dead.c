@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 14:29:23 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/12 16:55:08 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/12 17:18:34 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,13 @@ short int	philo_dead(t_data *data, int nbr_philo)
 		if (data[i].death)
 		{
 			all_philo_dead(data, nbr_philo);
-			pthread_mutex_lock(&((data[0].mut_const)[data->print]));
-			printf("%ld %d died\n", getting_time() \
-				- data->start_time, data[i].philo.id);
+			if (data[0].nbr_philo != 1)
 			{
-				return (SUCCESS);
+				pthread_mutex_lock(&((data[0].mut_const)[data->print]));
+				printf("%ld %d died\n", getting_time() \
+					- data->start_time, data[i].philo.id);
 			}
+			return (SUCCESS);
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 10:48:26 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/12 16:57:51 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/12 17:15:17 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static void	eating(t_data *data)
 	print_mut(data, "has taken a left fork");
 	if (data->nbr_philo == 1)
 	{
+		print_mut(data, "has died");
+		pthread_mutex_lock(&((data->mut_const)[data->print]));
 		pthread_mutex_lock(&((data->mut_const)[data->dead]));
 		data->death = 1;
 		pthread_mutex_unlock(&((data->mut_const)[data->dead]));
