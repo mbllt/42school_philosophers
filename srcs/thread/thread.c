@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 10:48:26 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/12 11:12:44 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/12 13:55:55 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	print_mut(t_data *data, char *str)
 
 static void	eating(t_data *data)
 {
-	pthread_mutex_lock(&((data->philo.mut_fork)[data->philo.left]));
+	pthread_mutex_lock(&(data->philo.mut_fork[data->philo.left]));
 	print_mut(data, "has taken a left fork");
 
 	pthread_mutex_lock(&(data->philo.mut_fork[data->philo.right]));
@@ -35,8 +35,8 @@ static void	eating(t_data *data)
 	(*data).n_meal++;
 	pthread_mutex_unlock(&((data->mut_const)[data->meal]));
 
-	pthread_mutex_lock(&(data->philo.mut_fork[data->philo.right]));
-	pthread_mutex_lock(&(data->philo.mut_fork[data->philo.left]));
+	pthread_mutex_unlock(&(data->philo.mut_fork[data->philo.right]));
+	pthread_mutex_unlock(&(data->philo.mut_fork[data->philo.left]));
 }
 
 static void	sleeping(t_data *data)
@@ -55,7 +55,6 @@ void	*thread(void *dat)
 	t_data	*data;
 
 	data = (t_data *)dat;
-	
 	if (!data->philo.id % 2)
 		ft_usleep(data->args.eat / 2);
 	while (!data->death)
@@ -68,7 +67,6 @@ void	*thread(void *dat)
 			pthread_mutex_unlock(&((data->mut_const)[data->dead]));
 			break ;
 		}
-		
 		eating(data);
 		sleeping(data);
 		thinking(data);

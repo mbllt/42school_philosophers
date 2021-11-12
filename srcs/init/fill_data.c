@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 20:44:48 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/12 10:58:12 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/12 13:47:26 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,21 @@ static t_args	fill_args(int argc, char **argv)
 	return (args);
 }
 
-static t_philo	fill_philo(int i, int nbr_philo)
+static void	fill_philo(t_data **data, int i, int nbr_philo)
 {
-	t_philo	philo;
-
-	philo.id = i + 1;
-	philo.thread_id = 0;
-	philo.start_eat = 0;
-	if (philo.id == nbr_philo)
+	(*data)[i].philo.id = i + 1;
+	(*data)[i].philo.thread_id = 0;
+	(*data)[i].philo.start_eat = 0;
+	if ((*data)[i].philo.id == nbr_philo)
 	{
-		philo.left = philo.id;
-		philo.right = 0;
+		(*data)[i].philo.left = i;
+		(*data)[i].philo.right = 0;
 	}
 	else
 	{
-		philo.left = philo.id;
-		philo.right = philo.id + 1;
+		(*data)[i].philo.left = i;
+		(*data)[i].philo.right = i + 1;
 	}
-	return (philo);
 }
 
 void	fill_data(int argc, char **argv, t_data **data)
@@ -55,7 +52,7 @@ void	fill_data(int argc, char **argv, t_data **data)
 	while (i < ft_atoi(argv[1]))
 	{
 		(*data)[i].args = fill_args(argc, argv);
-		(*data)[i].philo = fill_philo(i, ft_atoi(argv[1]));
+		fill_philo(data, i, ft_atoi(argv[1]));
 		(*data)[i].death = 0;
 		(*data)[i].nbr_philo = ft_atoi(argv[1]);
 		(*data)[i].n_meal = 0;
