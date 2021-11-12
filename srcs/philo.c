@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 17:55:36 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/12 13:47:50 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/12 14:00:11 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,7 @@ int	main(int argc, char **argv)
 			return (ft_exit(EXIT_FAILURE, NULL, clear, data));
 		if (!init_data(ft_atoi(argv[1]), &data))
 			return (ft_exit(EXIT_FAILURE, NULL, clear, data));
-		// printf("ca existe before :%p\n", &(data[0].philo.mut_fork[0]));
 		fill_data(argc, argv, &data);
-		// printf("ca existe after :%p\n", &(data[0].philo.mut_fork[0]));
 		if (!philo(&data, ft_atoi(argv[1])))
 			return (ft_exit(EXIT_FAILURE, NULL, clear, data));
 	}

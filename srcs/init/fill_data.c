@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 20:44:48 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/12 13:47:26 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/12 15:21:31 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,11 @@ static void	fill_philo(t_data **data, int i, int nbr_philo)
 	(*data)[i].philo.id = i + 1;
 	(*data)[i].philo.thread_id = 0;
 	(*data)[i].philo.start_eat = 0;
+	(*data)[i].philo.left = i;
 	if ((*data)[i].philo.id == nbr_philo)
-	{
-		(*data)[i].philo.left = i;
 		(*data)[i].philo.right = 0;
-	}
 	else
-	{
-		(*data)[i].philo.left = i;
 		(*data)[i].philo.right = i + 1;
-	}
 }
 
 void	fill_data(int argc, char **argv, t_data **data)
