@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 17:55:36 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/12 10:38:17 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/12 11:52:34 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ short int	starting_thread(t_data **data, int nbr_philo)
 {
 	int	i;
 
-	init_mut_fork(*data);
 	(*data)[0].start_time = getting_time();
 	i = 1;
 	while (i < nbr_philo)
@@ -27,6 +26,8 @@ short int	starting_thread(t_data **data, int nbr_philo)
 	i = 0;
 	while (i < nbr_philo)
 	{
+		printf("thread add :%p, data add :%p, thread :%p\n", \
+			&((*data)[i].philo.thread_id), &((*data)[i]), &thread);
 		if (pthread_create(&((*data)[i].philo.thread_id), \
 			NULL, &thread, &((*data)[i])))
 		{
@@ -34,16 +35,11 @@ short int	starting_thread(t_data **data, int nbr_philo)
 		}
 		i++;
 	}
-	if (!destroy_mut_fork(*data))
-	{
-		return (FAILURE);
-	}
 	return (SUCCESS);
 }
 
 short int	philo(t_data **data, int nbr_philo)
 {
-	init_mut_const(*data);
 	if (!starting_thread(data, nbr_philo))
 	{
 		return (FAILURE);
@@ -52,7 +48,7 @@ short int	philo(t_data **data, int nbr_philo)
 	{
 		if (philo_dead((*data), nbr_philo))
 		{
-			if (!destroy_mut_const(*data))
+			if (!destroy_mut_const(*data) || !destroy_mut_fork(*data))
 				return (FAILURE);
 			break ;
 		}

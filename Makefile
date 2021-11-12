@@ -10,7 +10,7 @@ SRCS_FILES=		philo.c\
 				init/init_data.c\
 				init/fill_data.c\
 				thread/thread.c\
-				thread/mutex.c
+				thread/mutex_destroy.c
 SRCS=			$(addprefix $(SRCS_DIR)/,$(SRCS_FILES))
 
 OBJS_DIR=		.objs

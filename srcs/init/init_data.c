@@ -6,11 +6,26 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 19:04:34 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/12 11:15:41 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/12 11:51:55 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static short int	init_thread_id(int nbr_philo, t_data **data)
+{
+	int	i;
+
+	i = 0;
+	while (i < nbr_philo)
+	{
+		(*data)[i].philo.thread_id = malloc(sizeof(pthread_mutex_t));
+		if (!((*data)[i].philo.thread_id))
+			return (FAILURE);
+		i++;
+	}
+	return (SUCCESS);
+}
 
 // Mes philos auront tous acces au meme tableau de mutex pour les forks
 static short int	init_fork(int nbr_philo, t_data **data)
@@ -21,6 +36,12 @@ static short int	init_fork(int nbr_philo, t_data **data)
 	temp = malloc(sizeof(pthread_mutex_t) * nbr_philo);
 	if (!temp)
 		return (FAILURE);
+	i = 0;
+	while (i < nbr_philo)
+	{
+		pthread_mutex_init(&(temp[i]), NULL);
+		i++;
+	}
 	i = 0;
 	while (i < nbr_philo)
 	{
@@ -42,6 +63,12 @@ static short int	init_const(int nbr_philo, t_data **data)
 	i = 0;
 	while (i < nbr_philo)
 	{
+		pthread_mutex_init(&(temp[i]), NULL);
+		i++;
+	}
+	i = 0;
+	while (i < nbr_philo)
+	{
 		(*data)[i].mut_const = temp;
 		i++;
 	}
@@ -52,6 +79,8 @@ short int	init_data(int nbr_philo, t_data **data)
 {
 	*data = malloc(sizeof(t_data) * nbr_philo);
 	if (!*data)
+		return (FAILURE);
+	if (!init_thread_id(nbr_philo, data))
 		return (FAILURE);
 	if (!init_fork(nbr_philo, data))
 		return (FAILURE);
