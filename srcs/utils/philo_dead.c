@@ -28,13 +28,14 @@ static short int	finish_meal(t_data *data, int nbr_philo)
 {
 	int	i;
 
+	pthread_mutex_lock(&((data[0].mut_const)[data->meal]));
 	i = 0;
 	while (i < nbr_philo)
 	{
 		if (data[i].args.n_eat && data[i].n_meal >= data[i].args.n_eat)
 		{
 			all_philo_dead(data, nbr_philo);
-			pthread_mutex_lock(data[i].print);
+			pthread_mutex_lock(&((data[0].mut_const)[data->print]));
 			printf("%ld %d died\n", getting_time() \
 				- data->start_time, data[i].philo.id);
 			{
@@ -43,6 +44,7 @@ static short int	finish_meal(t_data *data, int nbr_philo)
 		}
 		i++;
 	}
+	pthread_mutex_unlock(&((data[0].mut_const)[data->meal]));
 	return (FAILURE);
 }
 
@@ -50,13 +52,14 @@ short int	philo_dead(t_data *data, int nbr_philo)
 {
 	int	i;
 
+	pthread_mutex_lock(&((data[0].mut_const)[data->dead]));
 	i = 0;
 	while (i < nbr_philo)
 	{
 		if (data[i].death)
 		{
 			all_philo_dead(data, nbr_philo);
-			pthread_mutex_lock(data[i].print);
+			pthread_mutex_lock(&((data[0].mut_const)[data->print]));
 			printf("%ld %d died\n", getting_time() \
 				- data->start_time, data[i].philo.id);
 			{
@@ -65,6 +68,7 @@ short int	philo_dead(t_data *data, int nbr_philo)
 		}
 		i++;
 	}
+	pthread_mutex_unlock(&((data[0].mut_const)[data->dead]));
 	if (finish_meal(data, nbr_philo))
 	{
 		return (SUCCESS);

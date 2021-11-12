@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 17:55:36 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/11 09:26:38 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/12 10:38:17 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ short int	starting_thread(t_data **data, int nbr_philo)
 
 short int	philo(t_data **data, int nbr_philo)
 {
-	pthread_mutex_init((*data)[0].print, NULL);
+	init_mut_const(*data);
 	if (!starting_thread(data, nbr_philo))
 	{
 		return (FAILURE);
@@ -52,7 +52,7 @@ short int	philo(t_data **data, int nbr_philo)
 	{
 		if (philo_dead((*data), nbr_philo))
 		{
-			if (pthread_mutex_destroy((*data)[0].print))
+			if (!destroy_mut_const(*data))
 				return (FAILURE);
 			break ;
 		}

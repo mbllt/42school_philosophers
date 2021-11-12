@@ -35,6 +35,10 @@ CFLAGS := $(CFLAGS) $(SANFLAGS)
 OMPFLAGS := $(OMPFLAGS) $(SANFLAGS)
 endif
 
+ifeq ($(ASAN), 2)
+CFLAGS := $(CFLAGS) -fsanitize=address
+OMPFLAGS := $(OMPFLAGS) -fsanitize=address
+endif
 
 all:				$(NAME)
 

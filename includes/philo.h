@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 13:28:09 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/11 09:26:23 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/12 11:20:36 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ typedef struct s_philo
 {
 	int				id;
 	pthread_t		thread_id;
-	pthread_mutex_t	*r_f;
-	pthread_mutex_t	l_f;
+	pthread_mutex_t	*mut_fork;
+	int				right;		//index tableau mutex
+	int				left;		//index tableau mutex
 	long int		start_eat;
 }	t_philo;
 
@@ -46,11 +47,14 @@ typedef struct s_data
 {
 	t_args			args;
 	t_philo			philo;
+	int				nbr_philo;
+	long int		start_time;
 	short int		death;
 	int				n_meal;
-	int				nbr_philo;
-	pthread_mutex_t	*print;
-	long int		start_time;
+	int				print;		//index tableau mutex
+	int				meal;		//index tableau mutex
+	int				dead;		//index tableau mutex
+	pthread_mutex_t	*mut_const;
 }	t_data;
 
 // Init
@@ -63,6 +67,8 @@ short int	starting_thread(t_data **data, int nbr_philo);
 
 // Thread
 void		*thread(void *dat);
+void		init_mut_const(t_data *data);
+short int	destroy_mut_const(t_data *data);
 void		init_mut_fork(t_data *data);
 short int	destroy_mut_fork(t_data *data);
 
