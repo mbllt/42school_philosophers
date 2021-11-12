@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 10:48:26 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/12 15:56:54 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/12 16:33:55 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,33 @@ static void	print_mut(t_data *data, char *str)
 	pthread_mutex_unlock(&((data->mut_const)[data->print]));
 }
 
+static void	check_famish(t_data *data)
+{
+	if (data->philo.start_eat && (getting_time() \
+		- data->philo.start_eat) > data->args.die)
+	{
+		pthread_mutex_lock(&((data->mut_const)[data->dead]));
+		data->death = 1;
+		pthread_mutex_unlock(&((data->mut_const)[data->dead]));
+	}
+}
+
 static void	eating(t_data *data)
 {
 	pthread_mutex_lock(&(data->philo.mut_fork[data->philo.left]));
-	print_mut(data, "has taken a left fork ");
+	print_mut(data, "has taken a left fork");
 
+	if (data->nbr_philo == 1)
+	{
+		pthread_mutex_lock(&((data->mut_const)[data->dead]));
+		data->death = 1;
+		pthread_mutex_unlock(&((data->mut_const)[data->dead]));
+		return ;
+	}
 	pthread_mutex_lock(&(data->philo.mut_fork[data->philo.right]));
 	print_mut(data, "has taken a right fork");
 
+	check_famish(data);
 	print_mut(data, "is eating");
 	(*data).philo.start_eat = getting_time();
 	ft_usleep(data->args.eat);
@@ -56,17 +75,9 @@ void	*thread(void *dat)
 
 	data = (t_data *)dat;
 	if (!(data->philo.id % 2))
-		ft_usleep(data->args.eat / 2);
+		ft_usleep(10);
 	while (!data->death)
 	{
-		if (data->philo.start_eat && getting_time() \
-			- data->philo.start_eat > data->args.die)
-		{
-			pthread_mutex_lock(&((data->mut_const)[data->dead]));
-			data->death = 1;
-			pthread_mutex_unlock(&((data->mut_const)[data->dead]));
-			break ;
-		}
 		eating(data);
 		sleeping(data);
 		thinking(data);
