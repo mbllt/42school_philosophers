@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 13:28:09 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/12 11:20:36 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/12 16:57:46 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ typedef struct s_philo
 	int				id;
 	pthread_t		thread_id;
 	pthread_mutex_t	*mut_fork;
-	int				right;		//index tableau mutex
-	int				left;		//index tableau mutex
+	int				right;
+	int				left;
 	long int		start_eat;
 }	t_philo;
 
@@ -51,9 +51,9 @@ typedef struct s_data
 	long int		start_time;
 	short int		death;
 	int				n_meal;
-	int				print;		//index tableau mutex
-	int				meal;		//index tableau mutex
-	int				dead;		//index tableau mutex
+	int				print;
+	int				meal;
+	int				dead;
 	pthread_mutex_t	*mut_const;
 }	t_data;
 
@@ -74,10 +74,12 @@ short int	destroy_mut_fork(t_data *data);
 
 // Utils
 short int	check_args(int argc, char **argv);
-short int	ft_exit(int ret, char *mess_err, void(*clear)(t_data *data), t_data *data);
+short int	ft_exit(int ret, char *mess_err, void(*clear)(t_data *data), \
+				t_data *data);
 void		clear(t_data *data);
-long int	getting_time();
+long int	getting_time(void);
 short int	philo_dead(t_data *data, int nbr_philo);
 void		ft_usleep(long int time_in_ms);
+void		print_mut(t_data *data, char *str);
 
 #endif

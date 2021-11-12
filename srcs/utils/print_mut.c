@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_usleep.c                                        :+:      :+:    :+:   */
+/*   print_mut.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/10 16:22:53 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/12 16:54:42 by mballet          ###   ########.fr       */
+/*   Created: 2021/11/12 16:58:00 by mballet           #+#    #+#             */
+/*   Updated: 2021/11/12 16:58:09 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_usleep(long int time_in_ms)
+void	print_mut(t_data *data, char *str)
 {
-	long int	start_time;
-
-	start_time = 0;
-	start_time = getting_time();
-	while ((getting_time() - start_time) < time_in_ms)
-		usleep(time_in_ms / 10);
+	pthread_mutex_lock(&((data->mut_const)[data->print]));
+	printf("%ld %d %s\n", getting_time() \
+		- data->start_time, data->philo.id, str);
+	pthread_mutex_unlock(&((data->mut_const)[data->print]));
 }

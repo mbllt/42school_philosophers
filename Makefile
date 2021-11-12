@@ -6,6 +6,7 @@ SRCS_FILES=		philo.c\
 				utils/getting_time.c\
 				utils/philo_dead.c\
 				utils/ft_usleep.c\
+				utils/print_mut.c\
 				init/check_args.c\
 				init/init_data.c\
 				init/fill_data.c\

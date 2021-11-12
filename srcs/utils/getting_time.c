@@ -6,13 +6,13 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 11:03:39 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/10 13:11:43 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/12 16:54:49 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long int	getting_time()
+long int	getting_time(void)
 {
 	int				time;
 	struct timeval	current_time;

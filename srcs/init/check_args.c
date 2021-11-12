@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 18:15:14 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/10 10:07:44 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/12 16:53:51 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ static short int	check_digit(int argc, char **argv)
 			if (j == 0 && argv[i][j] == '-')
 				j++;
 			if (!ft_isdigit(argv[i][j]))
-					return (ft_exit(FAILURE, \
-						"Error : args must be digit", NULL, NULL));
+				return (ft_exit(FAILURE, \
+				"Error : args must be digit", NULL, NULL));
 		}
 		i++;
 	}
