@@ -6,26 +6,11 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 19:04:34 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/12 16:54:00 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/12 17:12:12 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-static short int	init_thread_id(int nbr_philo, t_data **data)
-{
-	int	i;
-
-	i = 0;
-	while (i < nbr_philo)
-	{
-		(*data)[i].philo.thread_id = malloc(sizeof(pthread_mutex_t));
-		if (!((*data)[i].philo.thread_id))
-			return (FAILURE);
-		i++;
-	}
-	return (SUCCESS);
-}
 
 static short int	init_fork(int nbr_philo, t_data **data)
 {
@@ -78,8 +63,8 @@ short int	init_data(int nbr_philo, t_data **data)
 	*data = malloc(sizeof(t_data) * nbr_philo);
 	if (!*data)
 		return (FAILURE);
-	if (!init_thread_id(nbr_philo, data))
-		return (FAILURE);
+	// if (!init_thread_id(nbr_philo, data))
+	// 	return (FAILURE);
 	if (!init_fork(nbr_philo, data))
 		return (FAILURE);
 	if (!init_const(nbr_philo, data))
