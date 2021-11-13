@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 20:44:48 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/12 16:53:56 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/13 19:26:45 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	fill_data(int argc, char **argv, t_data **data)
 		(*data)[i].death = 0;
 		(*data)[i].nbr_philo = ft_atoi(argv[1]);
 		(*data)[i].n_meal = 0;
+		(*data)[i].satiated = 0;
 		(*data)[i].print = 0;
 		(*data)[i].meal = 1;
 		(*data)[i].dead = 2;

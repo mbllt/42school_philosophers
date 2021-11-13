@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 10:48:26 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/13 17:57:39 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/13 19:46:12 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,20 @@ static void	check_famish(t_data *data)
 	}
 }
 
+static void	check_satiated(t_data *data)
+{
+	pthread_mutex_lock(&((data[0].mut_const)[data->meal]));
+	if (data->args.n_eat && data->n_meal >= data->args.n_eat)
+	{
+		data->satiated = 1;
+	}
+	pthread_mutex_unlock(&((data[0].mut_const)[data->meal]));
+}
+
 static void	eating(t_data *data)
 {
 	check_famish(data);
+	check_satiated(data);
 	pthread_mutex_lock(&(data->philo.mut_fork[data->philo.left]));
 	print_mut(data, "has taken a left fork");
 	if (data->nbr_philo == 1)
@@ -37,6 +48,7 @@ static void	eating(t_data *data)
 		pthread_mutex_unlock(&((data->mut_const)[data->dead]));
 		return ;
 	}
+	check_famish(data);
 	pthread_mutex_lock(&(data->philo.mut_fork[data->philo.right]));
 	print_mut(data, "has taken a right fork");
 	check_famish(data);
@@ -71,11 +83,14 @@ void	*thread(void *dat)
 	while (1)
 	{
 		pthread_mutex_lock(&((data->mut_const)[data->dead]));
-		if (data->death)
+		pthread_mutex_lock(&((data->mut_const)[data->meal]));
+		if (data->death || data->satiated)
 		{
+			pthread_mutex_unlock(&((data->mut_const)[data->meal]));
 			pthread_mutex_unlock(&((data->mut_const)[data->dead]));
 			break ;
 		}
+		pthread_mutex_unlock(&((data->mut_const)[data->meal]));
 		pthread_mutex_unlock(&((data->mut_const)[data->dead]));
 		eating(data);
 		sleeping(data);

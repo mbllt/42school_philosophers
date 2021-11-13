@@ -1,50 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_dead.c                                       :+:      :+:    :+:   */
+/*   philo_satiated.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/10 14:29:23 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/13 19:23:30 by mballet          ###   ########.fr       */
+/*   Created: 2021/11/13 19:32:06 by mballet           #+#    #+#             */
+/*   Updated: 2021/11/13 19:39:44 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	all_philo_dead(t_data *data, int nbr_philo)
+static void	all_philo_satiated(t_data *data, int nbr_philo)
 {
 	int	i;
 
 	i = 0;
 	while (i < nbr_philo)
 	{
-		data[i].death = 1;
+		data[i].satiated = 1;
 		i++;
 	}
 }
 
-short int	philo_dead(t_data *data, int nbr_philo)
+short int	philo_satiated(t_data *data, int nbr_philo)
 {
 	int	i;
 
-	pthread_mutex_lock(&((data[0].mut_const)[data->dead]));
+	pthread_mutex_lock(&((data[0].mut_const)[data->meal]));
 	i = 0;
 	while (i < nbr_philo)
 	{
-		if (data[i].death)
+		if (data[i].satiated)
 		{
-			all_philo_dead(data, nbr_philo);
-			if (data[0].nbr_philo != 1)
-			{
-				pthread_mutex_lock(&((data[0].mut_const)[data->print]));
-				printf("%ld %d died\n", getting_time() \
-					- data->start_time, data[i].philo.id);
-			}
+			all_philo_satiated(data, nbr_philo);
+			pthread_mutex_lock(&((data->mut_const)[data->print]));
+			printf("%ld Philos have eaten %d times\n", getting_time() \
+			- data->start_time, data->n_meal);
 			return (SUCCESS);
 		}
 		i++;
 	}
-	pthread_mutex_unlock(&((data[0].mut_const)[data->dead]));
+	pthread_mutex_unlock(&((data[0].mut_const)[data->meal]));
 	return (FAILURE);
 }

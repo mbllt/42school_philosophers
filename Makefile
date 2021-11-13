@@ -5,6 +5,7 @@ SRCS_FILES=		philo.c\
 				utils/ft_exit.c\
 				utils/getting_time.c\
 				utils/philo_dead.c\
+				utils/philo_satiated.c\
 				utils/ft_usleep.c\
 				utils/print_mut.c\
 				init/check_args.c\
