@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 17:55:36 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/12 17:17:36 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/13 15:32:43 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,3 +75,5 @@ int	main(int argc, char **argv)
 	}
 	return (ft_exit(EXIT_SUCCESS, NULL, clear, data));
 }
+
+//	Makefile relink check

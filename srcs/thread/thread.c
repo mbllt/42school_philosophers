@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 10:48:26 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/12 17:15:17 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/13 17:57:39 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	check_famish(t_data *data)
 
 static void	eating(t_data *data)
 {
+	check_famish(data);
 	pthread_mutex_lock(&(data->philo.mut_fork[data->philo.left]));
 	print_mut(data, "has taken a left fork");
 	if (data->nbr_philo == 1)
@@ -67,8 +68,15 @@ void	*thread(void *dat)
 	data = (t_data *)dat;
 	if (!(data->philo.id % 2))
 		ft_usleep(10);
-	while (!data->death)
+	while (1)
 	{
+		pthread_mutex_lock(&((data->mut_const)[data->dead]));
+		if (data->death)
+		{
+			pthread_mutex_unlock(&((data->mut_const)[data->dead]));
+			break ;
+		}
+		pthread_mutex_unlock(&((data->mut_const)[data->dead]));
 		eating(data);
 		sleeping(data);
 		thinking(data);

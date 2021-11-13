@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 14:29:23 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/12 17:18:34 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/13 17:42:52 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,16 @@ static short int	finish_meal(t_data *data, int nbr_philo)
 		{
 			all_philo_dead(data, nbr_philo);
 			pthread_mutex_lock(&((data[0].mut_const)[data->print]));
-			printf("%ld %d died\n", getting_time() \
-				- data->start_time, data[i].philo.id);
+			printf("%ld Philos have eaten %d times\n", getting_time() \
+				- data->start_time, data[i].n_meal);
 			{
 				return (SUCCESS);
 			}
 		}
 		i++;
 	}
-	pthread_mutex_unlock(&((data[0].mut_const)[data->dead]));
 	pthread_mutex_unlock(&((data[0].mut_const)[data->meal]));
+	pthread_mutex_unlock(&((data[0].mut_const)[data->dead]));
 	return (FAILURE);
 }
 

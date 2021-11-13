@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 19:04:34 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/12 17:12:12 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/13 17:48:49 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ short int	init_data(int nbr_philo, t_data **data)
 	*data = malloc(sizeof(t_data) * nbr_philo);
 	if (!*data)
 		return (FAILURE);
-	// if (!init_thread_id(nbr_philo, data))
-	// 	return (FAILURE);
 	if (!init_fork(nbr_philo, data))
 		return (FAILURE);
 	if (!init_const(nbr_philo, data))

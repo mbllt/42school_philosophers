@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 15:27:48 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/12 15:09:32 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/13 16:31:02 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ short int	destroy_mut_const(t_data *data)
 {
 	int	i;
 
+	(void)data;
 	i = 0;
 	while (i < 3)
 	{
@@ -29,6 +30,7 @@ short int	destroy_mut_fork(t_data *data)
 {
 	int	i;
 
+	(void)data;
 	i = 0;
 	while (i < data[0].nbr_philo)
 	{

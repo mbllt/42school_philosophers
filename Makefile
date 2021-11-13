@@ -43,10 +43,9 @@ endif
 
 all:				$(NAME)
 
-$(NAME):			$(OBJS) libs
+$(NAME):			libs $(OBJS)
 							@echo "Linking $(NAME)"
 							@$(CC) $(OMPFLAGS) $(TFLAGS) $(LIBS_A) $(OBJS) -o $(NAME)
-#							@$(CC) $(OMPFLAGS) $(TFLAGS) -o $(NAME) $^ $(LIBS_A)
 
 libs:
 							@echo "Making libft"
