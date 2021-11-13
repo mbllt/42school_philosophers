@@ -21,13 +21,13 @@ PATH_OBJS=		utils init thread
 INCLUDES=		includes/philo.h libft/includes/libft.h
 
 CC=				gcc
-CFLAGS=			-g -Wall -Werror -Wextra -Iincludes/
-SANFLAGS=		-g3 -fsanitize=thread
+CFLAGS=			-Wall -Werror -Wextra -Iincludes/
+SANFLAGS=		-g3 -fsanitize=thread -O1
 OMPFLAGS=		-openmp
 TFLAGS=			-pthread
 
-LIBFT_FILES=	libft
-NAME_LIBFT=		libft/libft.a
+LIBFT_DIR=	libft
+LIBS_A=		$(LIBFT_DIR)/libft.a
 
 RM=				/bin/rm -rf
 
@@ -43,13 +43,14 @@ endif
 
 all:				$(NAME)
 
-$(NAME):			$(NAME_LIBFT) $(OBJS)
+$(NAME):			$(OBJS) libs
 							@echo "Linking $(NAME)"
-							@$(CC) $(OMPFLAGS) $(TFLAGS) -o $(NAME) $^
+							@$(CC) $(OMPFLAGS) $(TFLAGS) $(LIBS_A) $(OBJS) -o $(NAME)
+#							@$(CC) $(OMPFLAGS) $(TFLAGS) -o $(NAME) $^ $(LIBS_A)
 
-$(NAME_LIBFT):
+libs:
 							@echo "Making libft"
-							@$(MAKE) -s -C $(LIBFT_FILES)
+							@$(MAKE) -C $(LIBFT_DIR) -s
 
 $(OBJS_DIR)/%.o:	$(SRCS_DIR)/%.c $(INCLUDES) | $(OBJS_DIR)
 							@echo "Compiling $<"
@@ -69,7 +70,7 @@ cleanlibft:
 fclean:				clean cleanlibft
 							@$(RM) $(NAME)
 							@$(RM) $(OBJS_DIR)
-							@$(RM) $(NAME_LIBFT)
+							@$(RM) $(LIBS_A)
 							@$(RM) $(LIBFT_DIR)/$(OBJS_DIR)
 
 re:					fclean all
