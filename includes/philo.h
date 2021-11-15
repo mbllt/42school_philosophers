@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 13:28:09 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/13 19:35:05 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/15 14:08:46 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void		fill_data(int argc, char **argv, t_data **data);
 // Philo
 short int	philo(t_data **data, int nbr_philo);
 short int	starting_thread(t_data **data, int nbr_philo);
+short int	philo_famished(t_data *data, int nbr_philo);
+short int	philo_satiated(t_data *data, int nbr_philo);
 
 // Thread
 void		*thread(void *dat);
@@ -79,8 +81,6 @@ short int	ft_exit(int ret, char *mess_err, void(*clear)(t_data *data), \
 				t_data *data);
 void		clear(t_data *data);
 long int	getting_time(void);
-short int	philo_dead(t_data *data, int nbr_philo);
-short int	philo_satiated(t_data *data, int nbr_philo);
 void		ft_usleep(long int time_in_ms);
 void		print_mut(t_data *data, char *str);
 

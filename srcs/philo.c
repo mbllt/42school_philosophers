@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 17:55:36 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/13 19:34:45 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/15 14:24:57 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ short int	philo(t_data **data, int nbr_philo)
 	}
 	while (1)
 	{
-		if (philo_dead(*data, nbr_philo) || philo_satiated(*data, nbr_philo))
+		if (philo_famished(*data, nbr_philo) \
+			|| philo_satiated(*data, nbr_philo))
 		{
 			if (!destroy_mut_const(*data) || !destroy_mut_fork(*data))
 				return (FAILURE);

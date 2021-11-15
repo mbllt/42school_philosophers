@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_dead.c                                       :+:      :+:    :+:   */
+/*   philo_famished.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/10 14:29:23 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/13 19:23:30 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/15 14:16:48 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	all_philo_dead(t_data *data, int nbr_philo)
 	}
 }
 
-short int	philo_dead(t_data *data, int nbr_philo)
+short int	philo_famished(t_data *data, int nbr_philo)
 {
 	int	i;
 
@@ -32,7 +32,8 @@ short int	philo_dead(t_data *data, int nbr_philo)
 	i = 0;
 	while (i < nbr_philo)
 	{
-		if (data[i].death)
+		if ((data[i].philo.start_eat && (getting_time() \
+			- data[i].philo.start_eat) > data[i].args.die) || data[i].death)
 		{
 			all_philo_dead(data, nbr_philo);
 			if (data[0].nbr_philo != 1)
