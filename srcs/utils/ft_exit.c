@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 18:29:06 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/12 17:12:16 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/15 16:07:33 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	clear(t_data *data)
 		free(data);
 }
 
-short int	ft_exit(int ret, char *mess_err, void(*clear)(t_data *data), \
+short int	ft_exit(int ret, char *mess_err, void (*clear)(t_data *data), \
 				t_data *data)
 {
 	if (data)

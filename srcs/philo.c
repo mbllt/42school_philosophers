@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 17:55:36 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/15 14:24:57 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/16 16:15:54 by mballet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ short int	starting_thread(t_data **data, int nbr_philo)
 
 short int	philo(t_data **data, int nbr_philo)
 {
+	int	i;
+
 	if (!starting_thread(data, nbr_philo))
 	{
 		return (FAILURE);
@@ -51,6 +53,12 @@ short int	philo(t_data **data, int nbr_philo)
 				return (FAILURE);
 			break ;
 		}
+	}
+	i = 0;
+	while (i < (*data)[0].nbr_philo)
+	{
+		pthread_detach((*data)[i].philo.thread_id);
+		i++;
 	}
 	return (SUCCESS);
 }

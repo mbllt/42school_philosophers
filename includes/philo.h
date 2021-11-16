@@ -6,7 +6,7 @@
 /*   By: mballet <mballet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 13:28:09 by mballet           #+#    #+#             */
-/*   Updated: 2021/11/15 14:08:46 by mballet          ###   ########.fr       */
+/*   Updated: 2021/11/15 16:07:29 by mballet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ short int	destroy_mut_fork(t_data *data);
 
 // Utils
 short int	check_args(int argc, char **argv);
-short int	ft_exit(int ret, char *mess_err, void(*clear)(t_data *data), \
+short int	ft_exit(int ret, char *mess_err, void (*clear)(t_data *data), \
 				t_data *data);
 void		clear(t_data *data);
 long int	getting_time(void);
